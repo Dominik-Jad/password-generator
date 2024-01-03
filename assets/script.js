@@ -88,3 +88,50 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+// Function to prompt user for password options
+function getPasswordOptions() {
+  // create an object to store user input
+  var passwordOptions = {
+    length: 0,
+    lowerCasedCharacters: false,
+    upperCasedCharacters: false,
+    numericCharacters: false,
+    specialCharacters: false,
+  };
+  // Prompt user to choose a length of at least 8 characters and no more than 128 characters 
+  while (
+    // while passowrd length is less than 8 or greater than 128 or not a number ask the user to enter a valid length
+    passwordOptions.length < 8 ||
+    passwordOptions.length > 128 ||
+    isNaN(passwordOptions.length)
+  ){
+    passwordOptions.length = parseInt(
+      prompt(`How many characters would you like your password to contain? (8 - 128)`)
+    );
+  }
+  // Prompt user to choose lowercase, uppercase, numeric, and/or special characters
+  do{
+    passwordOptions.lowerCasedCharacters = confirm(
+      `Click OK to confirm including lowercase characters.`
+    );
+  
+    passwordOptions.upperCasedCharacters = confirm(
+      `Click OK to confirm including uppercase characters.`
+    );
+  
+    passwordOptions.numericCharacters = confirm(
+      `Click OK to confirm including numeric characters.`
+    );
+  
+    passwordOptions.specialCharacters = confirm(
+      `Click OK to confirm including special characters.`
+    );
+  }while(
+    // while all the options are false ask the user to choose at least one option
+    !passwordOptions.lowerCasedCharacters &&
+    !passwordOptions.upperCasedCharacters &&
+    !passwordOptions.numericCharacters &&
+    !passwordOptions.specialCharacters
+  )
+  return passwordOptions;
+}
