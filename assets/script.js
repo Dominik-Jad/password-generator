@@ -105,6 +105,7 @@ function getPasswordOptions() {
     passwordOptions.length > 128 ||
     isNaN(passwordOptions.length)
   ){
+    // prompt the user to enter a valid length of the password
     passwordOptions.length = parseInt(
       prompt(`How many characters would you like your password to contain? (8 - 128)`)
     );
@@ -145,3 +146,36 @@ function getRandom(arr) {
   return randElement;
 }
 
+// Function to generate password with user input
+function generatePassword() {
+  var password = '';
+
+  // call getPasswordOptions function to get user input
+  var options = getPasswordOptions();
+
+  // loop over the length of the password and generate a random character for each index
+  for (var i = 0; i < options.length; i++) {
+    // create an array of possible characters based on user input
+    var possibleCharacters = [];
+    // check if the user chose to include a type of characters
+    // if yes, add the characters to the possible characters array
+    if (options.lowerCasedCharacters) {
+      possibleCharacters = possibleCharacters.concat(lowerCasedCharacters);
+    }
+    if (options.upperCasedCharacters) {
+      possibleCharacters = possibleCharacters.concat(upperCasedCharacters);
+    }
+    if (options.numericCharacters) {
+      possibleCharacters = possibleCharacters.concat(numericCharacters);
+    }
+    if (options.specialCharacters) {
+      possibleCharacters = possibleCharacters.concat(specialCharacters);
+    }
+    // get a random character from the possible characters array
+    var randomCharacter = getRandom(possibleCharacters);
+    // add the random character to the password
+    password += randomCharacter;
+  }
+  // return the password
+  return password
+}
